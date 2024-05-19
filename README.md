@@ -14,3 +14,5 @@ This is a brief template that provides the basic setup to create the backend por
 2. Run `pip install -r requirements.txt` to install necessary packages.
 3. Run service with `uvicorn app.main:app --reload`.
 4. Run tests with `to be configured`.
+5. Check code style with `flake8`.
+6. Check for static typing with `mypy .`.
