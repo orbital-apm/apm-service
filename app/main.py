@@ -13,19 +13,4 @@ app.include_router(api_router)
 
 # Tutorials and Guides endpoint
 
-class Tutorial(BaseModel):
-    id: int
-    title: str
-    content: str
-    category: str
-    created: str
-    updated: Optional[str] = None
-
-class Guide(BaseModel):
-    id: int
-    title: str
-    content: str
-    category: str
-    created: str
-    updated: Optional[str] = None
 
