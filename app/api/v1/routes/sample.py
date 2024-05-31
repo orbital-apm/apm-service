@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+
 @router.get("/")
-async def sample() -> dict[str, str]:
+async def sample():
     return {"Hello": "World"}
