@@ -5,12 +5,3 @@ from app.api import authentication
 app = FastAPI()
 app.include_router(api_router)
 app.include_router(authentication.router)
-
-# User authentication endpoint
-
-
-
-
-# Tutorials and Guides endpoint
-
-

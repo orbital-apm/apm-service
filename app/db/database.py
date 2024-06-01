@@ -8,11 +8,12 @@ load_dotenv()
 
 url = os.getenv("DATABASE_POSTGRE_URL")
 
-engine = create_engine(url)
-SessionLocal = sessionmaker(autocommit = False, autoflush = False, bind = engine)
+engine = create_engine(str(url))
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-def get_db():
+
+def get_db():  # type: ignore
     db = SessionLocal()
     try:
         yield db
