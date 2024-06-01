@@ -8,7 +8,7 @@ load_dotenv()
 
 url = os.getenv("DATABASE_POSTGRE_URL")
 
-engine = create_engine(str(url))
+engine = create_engine(url)  # type: ignore
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 

@@ -20,7 +20,7 @@ def get_user(db: Session, username: str) -> User | None:
     return db.query(User).filter(User.username == username).first()
 
 
-def authenticate_user(db: Session, username: str, password: str) -> User | False:  # type: ignore
+def authenticate_user(db: Session, username: str, password: str): # type: ignore
     user = get_user(db, username)
     if not user:
         return False
