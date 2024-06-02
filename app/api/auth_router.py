@@ -11,7 +11,7 @@ from jwt.exceptions import InvalidTokenError
 from typing import Annotated
 
 from app.api.models.auth_models import Token, TokenData, User, RegistrationRequest
-from app.services.auth_service import authenticate_user, create_user, register_new_user
+from app.services.auth_service import authenticate_user, register_new_user
 from app.db.database import get_db
 from app.schemas.auth import NewUserSchema
 
@@ -88,18 +88,6 @@ def register(new_user: NewUserSchema, db: Session = Depends(get_db)) -> JSONResp
     except Exception as e:
         # Todo: Handle exceptions.
         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @router.post("/register")
-# def register_user(user: RegistrationRequest, db: Session = Depends(get_db)) -> User:
-#     db_user = db.query(User).filter(User.email == user.email).first()  # type: ignore
-#     if db_user:
-#         raise HTTPException(status_code=400,
-#                             detail="This email is already in use.")
-#     elif RegistrationRequest.confirm_password != RegistrationRequest.password:
-#         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-#                             detail="Passwords do not match.")
-#     return create_user(db=db, user=user)
 
 
 # @router.get("/users/me/")
