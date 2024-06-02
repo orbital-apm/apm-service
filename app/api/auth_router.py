@@ -41,7 +41,7 @@ def register(new_user: RegisterUserSchema, db: Session = Depends(get_db)) -> JSO
     except HTTPException:
         raise
 
-    except Exception as e:
+    except Exception:
         # Todo: Handle exceptions.
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
