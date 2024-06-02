@@ -1,8 +1,8 @@
+import bcrypt
 import jwt
 import os
 import time
 from fastapi import HTTPException
-from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 from app.db.models.user import User
@@ -10,15 +10,12 @@ from app.db.repositories.user_repository import UserRepository
 from app.schemas.auth import LoginUserSchema, RegisterUserSchema
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return bool(pwd_context.verify(plain_password, hashed_password))
+    return bcrypt.checkpw(plain_password.encode(), hashed_password.encode())
 
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
 
 def generate_jwt(user: User) -> str:
