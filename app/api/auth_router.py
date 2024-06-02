@@ -1,37 +1,49 @@
-# Loading the necessary packages
-import jwt
-import os
-
-from fastapi import Depends, HTTPException, status, APIRouter
+from fastapi import Depends, HTTPException, APIRouter
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from datetime import datetime, timedelta, timezone
-from jwt.exceptions import InvalidTokenError
-from typing import Annotated
 
-from app.api.models.auth_models import Token, TokenData, User, RegistrationRequest
-from app.services.auth_service import authenticate_user, register_new_user
 from app.db.database import get_db
-from app.schemas.auth import NewUserSchema
-
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+from app.schemas.auth import LoginUserSchema, RegisterUserSchema
+from app.services.auth_service import login_user, register_user
 
 router = APIRouter()
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:  # type: ignore
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
-    else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+@router.post("/login")
+def login(returning_user: LoginUserSchema, db: Session = Depends(get_db)) -> JSONResponse:
+    try:
+        # Todo: Refresh token.
+        access_token = login_user(returning_user, db)
+
+        response_payload = {
+            "access_token": access_token,
+            "token_type": "bearer"
+        }
+
+        return JSONResponse(response_payload)
+
+    except HTTPException:
+        raise
+
+    except Exception:
+        # Todo: Handle exceptions.
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/register")
+def register(new_user: RegisterUserSchema, db: Session = Depends(get_db)) -> JSONResponse:
+    try:
+        register_user(new_user, db)
+
+        # Todo: Return token.
+        return JSONResponse({})
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        # Todo: Handle exceptions.
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 # async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)) -> User:
@@ -56,40 +68,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
 #     if current_user.disabled:
 #         raise HTTPException(status_code=400, detail="Inactive user.")
 #     return current_user
-
-
-@router.post("/login")
-def login_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-                       db: Session = Depends(get_db)) -> Token:
-    user = authenticate_user(db, form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(status_code=401,
-                            detail="Incorrect username or password.",
-                            headers={"WWW-Authenticate": "Bearer"})
-    elif user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user. Please register again.")
-    access_expiry = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(data={"sub": user.username},
-                                       expires_delta=access_expiry)
-    return Token(access_token=access_token, token_type="bearer")
-
-
-@router.post("/register")
-def register(new_user: NewUserSchema, db: Session = Depends(get_db)) -> JSONResponse:
-    try:
-        register_new_user(new_user, db)
-
-        # Todo: Return token.
-        return JSONResponse(content={})
-
-    except HTTPException:
-        raise
-
-    except Exception as e:
-        # Todo: Handle exceptions.
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
+#
+#
 # @router.get("/users/me/")
 # async def read_users_me(current_user: Annotated[User, Depends(get_current_active_user)]) -> User:
 #     return current_user
