@@ -13,7 +13,6 @@ class TokenData(BaseModel):
 class User(BaseModel):
     username: str
     email: EmailStr | None = None
-    disabled: bool | None = None
 
 
 class UserInDB(User):
