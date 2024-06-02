@@ -1,8 +1,10 @@
-# Importing necessary packages for authentication-related services
+from fastapi import HTTPException
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-from app.db.models.models import User
 from app.api.models.auth_models import RegistrationRequest
+from app.schemas.auth import NewUserSchema
+from app.db.models.user import User
+from app.db.repositories.user_repository import UserRepository
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -37,3 +39,18 @@ def create_user(db: Session, user: RegistrationRequest) -> User:
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def register_new_user(new_user: NewUserSchema, db: Session) -> None:
+    user_repository = UserRepository(db)
+    existing_user = user_repository.get_user_by_email(new_user.email)
+
+    if existing_user:
+        raise HTTPException(status_code=409, detail="Email already in use.")
+
+    user = User(
+        username=new_user.username,
+        email=new_user.email,
+        password=new_user.password
+    )
+    user_repository.insert_user(user)
