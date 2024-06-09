@@ -1,24 +1,16 @@
-import bcrypt
 import jwt
 import os
 import time
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.models.user import User
+from app.db.models.user import UserDB
 from app.db.repositories.user_repository import UserRepository
-from app.schemas.auth import LoginUserSchema, RegisterUserSchema
+from app.models.auth_models import TokenRequest
+from app.utils.cryptography import verify_password
 
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return bcrypt.checkpw(plain_password.encode(), hashed_password.encode())
-
-
-def hash_password(password: str) -> str:
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-
-
-def generate_jwt(user: User) -> str:
+def generate_jwt(user: UserDB) -> str:
     time_now = int(time.time())
     claims = {
         "sub": str(user.id),
@@ -33,28 +25,13 @@ def generate_jwt(user: User) -> str:
     return token
 
 
-def login_user(returning_user: LoginUserSchema, db: Session) -> str:
+def get_token(user: TokenRequest, db: Session) -> str:
     user_repository = UserRepository(db)
 
-    existing_user = user_repository.get_user_by_email(returning_user.email)
-    if not existing_user or not verify_password(returning_user.password, existing_user.password):
+    existing_user = user_repository.get_user_by_email(user.email)
+    if not existing_user or not verify_password(user.password, existing_user.password):
         raise HTTPException(status_code=401, detail="Incorrect email or password.")
 
     access_token = generate_jwt(existing_user)
 
     return access_token
-
-
-def register_user(new_user: RegisterUserSchema, db: Session) -> None:
-    user_repository = UserRepository(db)
-
-    existing_user = user_repository.get_user_by_email(new_user.email)
-    if existing_user:
-        raise HTTPException(status_code=409, detail="Email already in use.")
-
-    user = User(
-        username=new_user.username,
-        email=new_user.email,
-        password=hash_password(new_user.password)
-    )
-    user_repository.insert_user(user)
