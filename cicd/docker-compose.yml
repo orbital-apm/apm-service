@@ -1,0 +1,13 @@
+services:
+  postgresql:
+    image: public.ecr.aws/docker/library/postgres:15.1
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./init/db/:/docker-entrypoint-initdb.d/:ro
+      - ./temp/postgresql/data:/var/lib/postgresql/data/:rw
+    ports:
+      - 5432:5432
