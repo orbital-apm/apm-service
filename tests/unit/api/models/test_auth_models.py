@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from app.models.auth_models import TokenRequest
+from app.api.models.auth import GenerateTokenRequest
 
 
 def test_token_request_valid() -> None:
@@ -9,7 +9,7 @@ def test_token_request_valid() -> None:
         "email": "example@example.com",
         "password": "my_secret_password"
     }
-    token_request = TokenRequest(**data)
+    token_request = GenerateTokenRequest(**data)
 
     assert token_request.email == "example@example.com"
     assert token_request.password == "my_secret_password"
@@ -22,7 +22,7 @@ def test_token_request_invalid_email() -> None:
     }
 
     with pytest.raises(ValidationError):
-        TokenRequest(**data)
+        GenerateTokenRequest(**data)
 
 
 def test_token_request_missing_email() -> None:
@@ -31,7 +31,7 @@ def test_token_request_missing_email() -> None:
     }
 
     with pytest.raises(ValidationError):
-        TokenRequest(**data)
+        GenerateTokenRequest(**data)
 
 
 def test_token_request_missing_password() -> None:
@@ -40,7 +40,7 @@ def test_token_request_missing_password() -> None:
     }
 
     with pytest.raises(ValidationError):
-        TokenRequest(**data)
+        GenerateTokenRequest(**data)
 
 
 def test_token_request_extra() -> None:
@@ -49,7 +49,7 @@ def test_token_request_extra() -> None:
         "password": "my_secret_password",
         "hotel": "trivago"
     }
-    token_request = TokenRequest(**data)
+    token_request = GenerateTokenRequest(**data)
 
     assert token_request.email == "example@example.com"
     assert token_request.password == "my_secret_password"

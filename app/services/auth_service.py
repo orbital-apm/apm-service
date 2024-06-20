@@ -4,16 +4,15 @@ import time
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.models.user import UserDB
 from app.db.repositories.user_repository import UserRepository
-from app.models.auth_models import TokenRequest
+from app.services.models.auth import GenerateTokenParams
 from app.utils.cryptography import verify_password
 
 
-def generate_jwt(user: UserDB) -> str:
+def generate_jwt(user_id: str) -> str:
     time_now = int(time.time())
     claims = {
-        "sub": str(user.id),
+        "sub": user_id,
         "iss": "apm-service",
         "iat": time_now,
         "exp": time_now + (int(os.getenv("ACCESS_TOKEN_VALIDITY_MINUTES", 15)) * 60)
@@ -25,13 +24,13 @@ def generate_jwt(user: UserDB) -> str:
     return token
 
 
-def get_token(user: TokenRequest, db: Session) -> str:
+def get_token(params: GenerateTokenParams, db: Session) -> str:
     user_repository = UserRepository(db)
 
-    existing_user = user_repository.get_user_by_email(user.email)
-    if not existing_user or not verify_password(user.password, existing_user.password):
+    existing_user = user_repository.get_user_by_email(params.email)
+    if not existing_user or not verify_password(params.password, existing_user.password):
         raise HTTPException(status_code=401, detail="Incorrect email or password.")
 
-    access_token = generate_jwt(existing_user)
+    access_token = generate_jwt(str(existing_user.id))
 
     return access_token

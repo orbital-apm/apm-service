@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from app.models.users_models import UserAddRequest
+from app.api.models.users import AddUserRequest
 
 
 def test_user_add_request_valid() -> None:
@@ -10,7 +10,7 @@ def test_user_add_request_valid() -> None:
         "username": "example_username",
         "password": "my_secret_password"
     }
-    user_add_request = UserAddRequest(**data)
+    user_add_request = AddUserRequest(**data)
 
     assert user_add_request.email == "example@example.com"
     assert user_add_request.username == "example_username"
@@ -25,7 +25,7 @@ def test_user_add_request_invalid_email() -> None:
     }
 
     with pytest.raises(ValidationError):
-        UserAddRequest(**data)
+        AddUserRequest(**data)
 
 
 def test_user_add_request_missing_email() -> None:
@@ -35,7 +35,7 @@ def test_user_add_request_missing_email() -> None:
     }
 
     with pytest.raises(ValidationError):
-        UserAddRequest(**data)
+        AddUserRequest(**data)
 
 
 def test_token_request_missing_username() -> None:
@@ -45,7 +45,7 @@ def test_token_request_missing_username() -> None:
     }
 
     with pytest.raises(ValidationError):
-        UserAddRequest(**data)
+        AddUserRequest(**data)
 
 
 def test_token_request_missing_password() -> None:
@@ -55,7 +55,7 @@ def test_token_request_missing_password() -> None:
     }
 
     with pytest.raises(ValidationError):
-        UserAddRequest(**data)
+        AddUserRequest(**data)
 
 
 def test_token_request_extra() -> None:
@@ -65,7 +65,7 @@ def test_token_request_extra() -> None:
         "password": "my_secret_password",
         "hotel": "trivago"
     }
-    user_add_request = UserAddRequest(**data)
+    user_add_request = AddUserRequest(**data)
 
     assert user_add_request.email == "example@example.com"
     assert user_add_request.username == "example_username"

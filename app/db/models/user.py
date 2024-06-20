@@ -4,7 +4,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from app.db.database import Base
 
 
-class UserDB(Base):  # type: ignore[misc]
+class UserEntity(Base):  # type: ignore[misc]
     __tablename__ = "user"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
