@@ -5,7 +5,7 @@ from app.db.database import Base
 
 
 class UserEntity(Base):  # type: ignore[misc]
-    __tablename__ = "user"
+    __tablename__ = "users"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     username: Mapped[str] = mapped_column(unique=True, nullable=True)

@@ -13,10 +13,14 @@ router = APIRouter(prefix="/users")
 @router.post(path="")
 def add_user_route(request: AddUserRequest, db: Session = Depends(get_db)) -> JSONResponse:
     try:
-        add_user(AddUserParams(**request.model_dump()), db)
+        access_token = add_user(AddUserParams(**request.model_dump()), db)
 
-        # Todo: Return token.
-        return JSONResponse({}, status_code=201)
+        response_payload = {
+            "access_token": access_token,
+            "token_type": "bearer"
+        }
+
+        return JSONResponse(response_payload, status_code=201)
 
     except HTTPException:
         raise
