@@ -1,3 +1,5 @@
+from fastapi import HTTPException
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.db.models.user import UserEntity
@@ -12,7 +14,11 @@ class UserRepository:
         return self.db.query(UserEntity).filter(UserEntity.email == email).first()
 
     def insert_user(self, params: AddUserParams) -> None:
-        user = UserEntity(**params.model_dump())
+        try:
+            user = UserEntity(**params.model_dump())
 
-        self.db.add(user)
-        self.db.commit()
+            self.db.add(user)
+            self.db.commit()
+
+        except IntegrityError:
+            raise HTTPException(status_code=409, detail="Email/username already in use.")
