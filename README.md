@@ -30,5 +30,5 @@ Set up local PostgreSQL DB:
 Running:
 1. Run service with `uvicorn app.main:app --host 0.0.0.0 --port 8888 --reload`.
 2. Check code style with `flake8`.
-3. Run tests and mypy check with `coverage run -m pytest --mypy . -s`.
+3. Run tests and mypy check with `coverage run -m pytest --mypy -s`.
 4. Check coverage with `coverage report`.
