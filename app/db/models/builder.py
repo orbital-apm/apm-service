@@ -1,8 +1,9 @@
 import uuid
-from sqlalchemy import ARRAY, String
-from sqlalchemy.orm import Mapped, mapped_column  # type: ignore[attr-defined]
+from sqlalchemy import ARRAY, String, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship  # type: ignore[attr-defined]
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.database import Base
+from app.db.models.user import User
 
 
 # Keyboard Switches Table
@@ -20,6 +21,7 @@ class Switch(Base):  # type: ignore
     travel_distance: Mapped[float] = mapped_column(unique=False, nullable=True)
     vendor: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False, nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
+    availability: Mapped[str] = mapped_column(unique=False, nullable=True)
 
 
 # Keyboard Keycaps Table
@@ -38,7 +40,7 @@ class Keycap(Base):  # type: ignore
     material: Mapped[str] = mapped_column(unique=False, nullable=True)
     profile: Mapped[str] = mapped_column(unique=False, nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
-
+    availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
 # Keyboard Lubricants Table
 
@@ -49,8 +51,8 @@ class Lubricant(Base):  # type: ignore
     id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
     name: Mapped[str] = mapped_column(unique=False, nullable=False)
     price: Mapped[float] = mapped_column(unique=False, nullable=True)
-    brand: Mapped[str] = mapped_column(unique=False, nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
+    availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
 # Keyboard Kits Table
     
@@ -71,6 +73,19 @@ class Kits(Base): # type: ignore
     rgb_support: Mapped[bool] = mapped_column(unique=False, nullable=True)
     display_support: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
-    connection: Mapped[str] = mapped_column(unique=False, nullable=True)
+    connection: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False, nullable=True)
     mount_style: Mapped[str] = mapped_column(unique=False, nullable=True)
     material: Mapped[str] = mapped_column(unique=False, nullable=True)
+    img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
+    availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
+
+class Builds(Base):
+    __tablename__ = "builds"
+
+    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    user_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    build_name: Mapped[str] = mapped_column(unique=False, nullable=True)
+    kit_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
+    switch_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
+    keycap_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
+    lubricant_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
