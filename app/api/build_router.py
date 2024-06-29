@@ -4,7 +4,8 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.db import crud
-# from app.schemas.build import _  # To do: Set up schemas for builder
+# from app.schemas.build import _
+# To do: Set up schemas for builder
 
 
 router = APIRouter()
@@ -33,6 +34,7 @@ def get_kits(db: Session = Depends(get_db)):
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+
 @router.get("/products/lubricants")
 def get_lubricants(db: Session = Depends(get_db)):
     try:
@@ -41,7 +43,6 @@ def get_lubricants(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-#@router.get("/products/keycaps/{id}")
-#async def keycap(uuid: uuid, db: Session = Depends(get_db)):
-#    return 
- 
+# @router.get("/products/keycaps/{id}")
+# async def keycap(uuid: uuid, db: Session = Depends(get_db)):
+#    return
