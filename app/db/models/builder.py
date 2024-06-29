@@ -90,19 +90,3 @@ class Builds(Base):
     keycap_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
     lubricant_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
 
-# Builds Table
-    
-
-class Builds(Base): # type: ignore
-    __tablename__ = "builds"
-
-    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
-    user_id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
-
-    build_name: Mapped[str] = mapped_column(unique=False, nullable=False)
-
-    kit_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-    switch_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-    keycap_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-    lubricant_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-
