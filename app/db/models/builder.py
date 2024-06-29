@@ -1,10 +1,8 @@
 import uuid
 from sqlalchemy import ARRAY, String, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship  # type: ignore[attr-defined]
+from sqlalchemy.orm import Mapped, mapped_column  # type: ignore[attr-defined]
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.database import Base
-from app.db.models.user import User
-
 
 # Keyboard Switches Table
 
@@ -55,9 +53,9 @@ class Lubricant(Base):  # type: ignore
     availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
 # Keyboard Kits Table
-    
 
-class Kits(Base): # type: ignore
+
+class Kits(Base):  # type: ignore
     __tablename__ = "kits"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
@@ -79,7 +77,8 @@ class Kits(Base): # type: ignore
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
     availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
-class Builds(Base):
+
+class Builds(Base):  # type: ignore
     __tablename__ = "builds"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
@@ -89,4 +88,3 @@ class Builds(Base):
     switch_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
     keycap_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
     lubricant_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-
