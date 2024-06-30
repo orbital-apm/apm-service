@@ -3,8 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
-from app.api import auth_router, build_router
-from app.api.v1.routers import auth_router
+from app.api.v1.routers import auth_router, build_router
 
 load_dotenv()
 
