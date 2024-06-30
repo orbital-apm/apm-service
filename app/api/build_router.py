@@ -1,6 +1,6 @@
 from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
-# import uuid
+from uuid import UUID
 
 from app.db.database import get_db
 from app.db import crud
@@ -19,10 +19,26 @@ def get_keycaps(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
+@router.get("/products/keycaps/{id}")
+async def keycap(id: UUID, db: Session = Depends(get_db)):
+    try:
+        return crud.keycap_info(db, id)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
 @router.get("/products/switches")
 def get_switches(db: Session = Depends(get_db)):
     try:
         return crud.get_switches(db)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/products/switches/{id}")
+async def switch(id: UUID, db: Session = Depends(get_db)):
+    try:
+        return crud.switch_info(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -35,6 +51,14 @@ def get_kits(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
+@router.get("/products/kits/{id}")
+async def kit(id: UUID, db: Session = Depends(get_db)):
+    try:
+        return crud.kit_info(db, id)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
 @router.get("/products/lubricants")
 def get_lubricants(db: Session = Depends(get_db)):
     try:
@@ -43,6 +67,17 @@ def get_lubricants(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-# @router.get("/products/keycaps/{id}")
-# async def keycap(uuid: uuid, db: Session = Depends(get_db)):
-#    return
+@router.get("/products/lubricants/{id}")
+async def lubricant(id: UUID, db: Session = Depends(get_db)):
+    try:
+        return crud.lubricant_info(db, id)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/builds/{user_id}/{id}")
+async def build(id: UUID, user_id: UUID, db: Session = Depends(get_db)):
+    try:
+        return crud.build_info(db, uuid=id, user_id=user_id)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")

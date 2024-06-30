@@ -68,3 +68,14 @@ def lubricant_info(db: Session, uuid: UUID):  # type: ignore
 
     if lubricant is None:
         raise HTTPException(status_code=404, detail="Information not found")
+    return lubricant
+
+
+def build_info(db: Session, uuid: UUID, user_id: UUID):  # type: ignore
+    query = select(Builds).where(Builds.id == uuid and Builds.user_id == user_id)
+    result = db.execute(query)
+    build = result.scalar_one_or_none()
+
+    if build is None:
+        raise HTTPException(status_code=404, detail="Information not found")
+    return build

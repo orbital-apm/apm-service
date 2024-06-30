@@ -10,13 +10,13 @@ from app.db.database import Base
 class Switch(Base):  # type: ignore
     __tablename__ = "switches"
 
-    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(unique=False, nullable=False)
     price: Mapped[float] = mapped_column(unique=False, nullable=True)
     manufacturer: Mapped[str] = mapped_column(unique=False, nullable=True)
     switch_type: Mapped[str] = mapped_column(unique=False, nullable=False)
-    actuation_force: Mapped[float] = mapped_column(unique=False, nullable=True)
-    travel_distance: Mapped[float] = mapped_column(unique=False, nullable=True)
+    actuation_force: Mapped[str] = mapped_column(unique=False, nullable=True)
+    travel_distance: Mapped[str] = mapped_column(unique=False, nullable=True)
     vendor: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False, nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
     availability: Mapped[str] = mapped_column(unique=False, nullable=True)
@@ -28,7 +28,7 @@ class Switch(Base):  # type: ignore
 class Keycap(Base):  # type: ignore
     __tablename__ = "keycaps"
 
-    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(unique=False, nullable=False)
     price: Mapped[float] = mapped_column(unique=False, nullable=True)
     manufacturer: Mapped[str] = mapped_column(unique=False, nullable=True)
@@ -46,9 +46,9 @@ class Keycap(Base):  # type: ignore
 class Lubricant(Base):  # type: ignore
     __tablename__ = "lubricants"
 
-    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(unique=False, nullable=False)
-    price: Mapped[float] = mapped_column(unique=False, nullable=True)
+    price: Mapped[str] = mapped_column(unique=False, nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
     availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
@@ -58,11 +58,13 @@ class Lubricant(Base):  # type: ignore
 class Kits(Base):  # type: ignore
     __tablename__ = "kits"
 
-    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(unique=False, nullable=False)
+    price: Mapped[float] = mapped_column(unique=False, nullable=True)
     manufacturer: Mapped[str] = mapped_column(unique=False, nullable=True)
+    vendor: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False, nullable=True)
 
-    layout_size: Mapped[int] = mapped_column(unique=False, nullable=False)
+    layout_size: Mapped[str] = mapped_column(unique=False, nullable=False)
     layout_standard: Mapped[str] = mapped_column(unique=False, nullable=True)
     layout_ergonomic: Mapped[str] = mapped_column(unique=False, nullable=True)
 
@@ -81,7 +83,7 @@ class Kits(Base):  # type: ignore
 class Builds(Base):  # type: ignore
     __tablename__ = "builds"
 
-    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     build_name: Mapped[str] = mapped_column(unique=False, nullable=True)
     kit_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
