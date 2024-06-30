@@ -12,10 +12,10 @@ from app.db.models.builder import Builds
 router = APIRouter()
 
 
-@router.get("/builds/{user_id}/{id}")
-async def build(id: UUID, user_id: UUID, db: Session = Depends(get_db)):
+@router.get("/builds/{id}")
+async def build(id: UUID, db: Session = Depends(get_db)):
     try:
-        return crud.get_build(db, uuid=id, user_id=user_id)
+        return crud.get_build(db, uuid=id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 

@@ -71,8 +71,8 @@ def get_lubricant(db: Session, uuid: UUID):  # type: ignore
     return lubricant
 
 
-def get_build(db: Session, uuid: UUID, user_id: UUID):  # type: ignore
-    query = select(Builds).where(Builds.id == uuid and Builds.user_id == user_id)
+def get_build(db: Session, uuid: UUID):  # type: ignore
+    query = select(Builds).where(Builds.id == uuid)
     result = db.execute(query)
     build = result.scalar_one_or_none()
 
