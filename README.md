@@ -22,9 +22,13 @@ Preparation:
     DB_USERNAME
     DB_PASSWORD
    ```
+   
+Set up local PostgreSQL DB:
+1. Start container with `docker-compose -f cicd/docker-compose.yml up -d`.
+2. Stop container with `docker-compose -f cicd/docker-compose.yml down -v`.
 
 Running:
-1. Run service with `uvicorn app.main:app --reload`.
-2. Run tests with `to be configured`.
-3. Check code style with `flake8`.
-4. Check for static typing with `mypy .`.
+1. Run service with `uvicorn app.main:app --host 0.0.0.0 --port 8888 --reload`.
+2. Check code style with `flake8`.
+3. Run tests and mypy check with `coverage run -m pytest --mypy -s`.
+4. Check coverage with `coverage report`.

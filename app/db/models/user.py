@@ -5,10 +5,9 @@ from app.db.database import Base
 
 # Registered users table
 
-
-class User(Base):  # type: ignore
-    __tablename__ = "user"
-
+class UserEntity(Base):  # type: ignore[misc]
+    __tablename__ = "users"
+    
     id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     username: Mapped[str] = mapped_column(unique=True, nullable=True)
     email: Mapped[str] = mapped_column(unique=True, nullable=False)

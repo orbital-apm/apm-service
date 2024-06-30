@@ -15,6 +15,10 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Load env vars
+        run: |
+          cat cicd/env > .env
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -32,7 +36,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
+      - name: Start docker containers
+        run: |
+          docker compose -f cicd/docker-compose.yml up -d
+
       - name: Run the tests
         run: |
           pip install tox
           tox -e py
+
+      - name: Stop docker containers
+        if: always()
+        run: |
+          docker compose -f cicd/docker-compose.yml down -v
