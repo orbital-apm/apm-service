@@ -6,6 +6,3 @@ CREATE TABLE public."users" (
     password TEXT NOT NULL
 );
 
-INSERT INTO public."users" (username, email, password)
-VALUES ('admin', 'admin@admin.com', '$2b$12$TmUxhM.CLQwTttSwQ//pLe9D5YeHgiJKRXHAlTa0Ze0TcKn9tBMRy')
-
