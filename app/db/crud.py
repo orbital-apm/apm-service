@@ -28,7 +28,7 @@ def get_builds(db: Session) -> list[typing.Any]:  # type: ignore
 
 # To do: Check whether the function has the correct logic.
 
-def keycap_info(db: Session, uuid: UUID):  # type: ignore
+def get_keycap(db: Session, uuid: UUID):  # type: ignore
     query = select(Keycap).where(Keycap.id == uuid)
     result = db.execute(query)
     keycap = result.scalar_one_or_none()
@@ -39,7 +39,7 @@ def keycap_info(db: Session, uuid: UUID):  # type: ignore
     return keycap
 
 
-def switch_info(db: Session, uuid: UUID):  # type: ignore
+def get_switch(db: Session, uuid: UUID):  # type: ignore
     query = select(Switch).where(Switch.id == uuid)
     result = db.execute(query)
     switch = result.scalar_one_or_none()
@@ -50,7 +50,7 @@ def switch_info(db: Session, uuid: UUID):  # type: ignore
     return switch
 
 
-def kit_info(db: Session, uuid: UUID):  # type: ignore
+def get_kit(db: Session, uuid: UUID):  # type: ignore
     query = select(Kits).where(Kits.id == uuid)
     result = db.execute(query)
     kits = result.scalar_one_or_none()
@@ -61,7 +61,7 @@ def kit_info(db: Session, uuid: UUID):  # type: ignore
     return kits
 
 
-def lubricant_info(db: Session, uuid: UUID):  # type: ignore
+def get_lubricant(db: Session, uuid: UUID):  # type: ignore
     query = select(Lubricant).where(Lubricant.id == uuid)
     result = db.execute(query)
     lubricant = result.scalar_one_or_none()
@@ -71,7 +71,7 @@ def lubricant_info(db: Session, uuid: UUID):  # type: ignore
     return lubricant
 
 
-def build_info(db: Session, uuid: UUID, user_id: UUID):  # type: ignore
+def get_build(db: Session, uuid: UUID, user_id: UUID):  # type: ignore
     query = select(Builds).where(Builds.id == uuid and Builds.user_id == user_id)
     result = db.execute(query)
     build = result.scalar_one_or_none()

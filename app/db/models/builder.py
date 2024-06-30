@@ -84,9 +84,9 @@ class Builds(Base):  # type: ignore
     __tablename__ = "builds"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     build_name: Mapped[str] = mapped_column(unique=False, nullable=True)
-    kit_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-    switch_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-    keycap_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
-    lubricant_choice: Mapped[str] = mapped_column(unique=False, nullable=True)
+#   user_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    kit_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("kits.id"), default=uuid.uuid4)
+    switch_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("switches.id"), default=uuid.uuid4)
+    keycap_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("keycaps.id"), default=uuid.uuid4)
+    lubricant_id: Mapped[str] = mapped_column(UUID(as_uuid=True), ForeignKey("lubricants.id"), default=uuid.uuid4)

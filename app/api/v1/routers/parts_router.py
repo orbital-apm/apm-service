@@ -22,7 +22,7 @@ def get_keycaps(db: Session = Depends(get_db)):
 @router.get("/products/keycaps/{id}")
 async def keycap(id: UUID, db: Session = Depends(get_db)):
     try:
-        return crud.keycap_info(db, id)
+        return crud.get_keycap(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -38,7 +38,7 @@ def get_switches(db: Session = Depends(get_db)):
 @router.get("/products/switches/{id}")
 async def switch(id: UUID, db: Session = Depends(get_db)):
     try:
-        return crud.switch_info(db, id)
+        return crud.get_switch(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -54,7 +54,7 @@ def get_kits(db: Session = Depends(get_db)):
 @router.get("/products/kits/{id}")
 async def kit(id: UUID, db: Session = Depends(get_db)):
     try:
-        return crud.kit_info(db, id)
+        return crud.get_kit(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -70,14 +70,6 @@ def get_lubricants(db: Session = Depends(get_db)):
 @router.get("/products/lubricants/{id}")
 async def lubricant(id: UUID, db: Session = Depends(get_db)):
     try:
-        return crud.lubricant_info(db, id)
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-@router.get("/builds/{user_id}/{id}")
-async def build(id: UUID, user_id: UUID, db: Session = Depends(get_db)):
-    try:
-        return crud.build_info(db, uuid=id, user_id=user_id)
+        return crud.get_lubricant(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
