@@ -4,12 +4,12 @@ from sqlalchemy import insert
 from uuid import UUID, uuid4
 
 from app.db.database import get_db
-from app.api.models.builds import GenerateBuild
+from app.api.models.builds import GenerateBuildRequest
 from app.db import crud
 from app.db.models.builder import Builds
 
 
-router = APIRouter()
+router = APIRouter(prefix="/builds")
 
 
 @router.get("/builds/{id}")
@@ -21,7 +21,7 @@ async def build(id: UUID, db: Session = Depends(get_db)):
 
 
 @router.post("/builds")
-def create_build(build: GenerateBuild, db: Session = Depends(get_db)):
+def create_build(build: GenerateBuildRequest, db: Session = Depends(get_db)):
     build_id = uuid4()
 
     query = insert(Builds).values(

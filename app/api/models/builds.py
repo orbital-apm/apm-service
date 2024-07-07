@@ -2,9 +2,9 @@ from pydantic import BaseModel
 from uuid import UUID
 
 
-class GenerateBuild(BaseModel):  # type: ignore[misc]
-    build_name: str | None
-    switch_id: UUID | None
-    kit_id: UUID | None
-    keycap_id: UUID | None
-    lubricant_id: UUID | None
+class GenerateBuildRequest(BaseModel):  # type: ignore[misc]
+    build_name: str
+    switch_id: UUID
+    kit_id: UUID
+    keycap_id: UUID
+    lubricant_id: UUID

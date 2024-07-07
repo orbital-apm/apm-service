@@ -5,7 +5,7 @@ from uuid import UUID
 from app.db.database import get_db
 from app.db import crud
 # from app.schemas.build import _
-# To do: Set up schemas for builder
+# Todo: Set up schemas for builder
 
 
 router = APIRouter()
