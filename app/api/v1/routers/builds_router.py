@@ -1,4 +1,5 @@
 from fastapi import Depends, HTTPException, APIRouter
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import insert
 from uuid import UUID, uuid4
@@ -13,7 +14,7 @@ router = APIRouter()
 
 
 @router.get("/builds/{id}")
-async def build(id: UUID, db: Session = Depends(get_db)):
+async def build(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
     try:
         return crud.get_build(db, uuid=id)
     except Exception:
@@ -21,7 +22,7 @@ async def build(id: UUID, db: Session = Depends(get_db)):
 
 
 @router.post("/builds")
-def create_build(build: GenerateBuild, db: Session = Depends(get_db)):
+def create_build(build: GenerateBuild, db: Session = Depends(get_db)) -> UUID:
     build_id = uuid4()
 
     query = insert(Builds).values(

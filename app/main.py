@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
@@ -22,6 +23,11 @@ app.include_router(auth_router.router)
 app.include_router(parts_router.router)
 app.include_router(builds_router.router)
 app.include_router(parts_router.router)
+
+
+@app.get("/ping")
+async def ping() -> JSONResponse:
+    return JSONResponse(content={"Message": "Successful ping"}, status_code=200)
 
 
 if __name__ == "__main__":
