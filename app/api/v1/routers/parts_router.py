@@ -9,17 +9,17 @@ from uuid import UUID
 from app.db.database import get_db
 from app.db import crud
 from app.db.models.builder import Keycap, Switch, Kits, Lubricant
-from app.schemas.parts import KeycapOut, SwitchOut, KitsOut, LubricantsOut
+from app.schemas.parts_schemas.parts import KeycapSchema, SwitchSchema, KitsSchema, LubricantsSchema
 
 
 router = APIRouter()
 
 
-@router.get("/parts/keycaps", response_model=Page[KeycapOut])
-def get_keycaps(db: Session = Depends(get_db)) -> Page[KeycapOut]:
+@router.get("/parts/keycaps", response_model=Page[KeycapSchema])
+def get_keycaps(db: Session = Depends(get_db)) -> Page[KeycapSchema]:
     try:
         query = select(Keycap)
-        result: Page[KeycapOut] = paginate(db, query)
+        result: Page[KeycapSchema] = paginate(db, query)
         return result
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
@@ -33,11 +33,11 @@ async def keycap(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
         raise Exception
 
 
-@router.get("/parts/switches", response_model=Page[SwitchOut])
-def get_switches(db: Session = Depends(get_db)) -> Page[SwitchOut]:
+@router.get("/parts/switches", response_model=Page[SwitchSchema])
+def get_switches(db: Session = Depends(get_db)) -> Page[SwitchSchema]:
     try:
         query = select(Switch)
-        result: Page[SwitchOut] = paginate(db, query)
+        result: Page[SwitchSchema] = paginate(db, query)
         return result
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
@@ -51,11 +51,11 @@ async def switch(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.get("/parts/kits", response_model=Page[KitsOut])
-def get_kits(db: Session = Depends(get_db)) -> Page[KitsOut]:
+@router.get("/parts/kits", response_model=Page[KitsSchema])
+def get_kits(db: Session = Depends(get_db)) -> Page[KitsSchema]:
     try:
         query = select(Kits)
-        result: Page[KitsOut] = paginate(db, query)
+        result: Page[KitsSchema] = paginate(db, query)
         return result
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
@@ -69,11 +69,11 @@ async def kit(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.get("/parts/lubricants", response_model=Page[LubricantsOut])
-def get_lubricants(db: Session = Depends(get_db)) -> Page[LubricantsOut]:
+@router.get("/parts/lubricants", response_model=Page[LubricantsSchema])
+def get_lubricants(db: Session = Depends(get_db)) -> Page[LubricantsSchema]:
     try:
         query = select(Lubricant)
-        result: Page[LubricantsOut] = paginate(db, query)
+        result: Page[LubricantsSchema] = paginate(db, query)
         return result
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")

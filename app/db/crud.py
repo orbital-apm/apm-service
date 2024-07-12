@@ -2,8 +2,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
+from typing import cast
 from app.db.models.builder import Keycap, Switch, Lubricant, Kits, Builds
 
 
@@ -32,7 +31,7 @@ def get_builds(db: Session) -> list[Builds]:
 # Functions for specific parts listing page
 
 
-def get_keycap(db: Session, uuid: UUID) -> JSONResponse:
+def get_keycap(db: Session, uuid: UUID) -> Keycap:
     query = select(Keycap).where(Keycap.id == uuid)
     result = db.execute(query)
     keycap = result.scalar_one_or_none()
@@ -40,10 +39,10 @@ def get_keycap(db: Session, uuid: UUID) -> JSONResponse:
     if keycap is None:
         raise HTTPException(status_code=404, detail="Information not found.")
 
-    return JSONResponse(content=jsonable_encoder(keycap))
+    return cast(Keycap, keycap)
 
 
-def get_switch(db: Session, uuid: UUID) -> JSONResponse:
+def get_switch(db: Session, uuid: UUID) -> Switch:
     query = select(Switch).where(Switch.id == uuid)
     result = db.execute(query)
     switch = result.scalar_one_or_none()
@@ -51,10 +50,10 @@ def get_switch(db: Session, uuid: UUID) -> JSONResponse:
     if switch is None:
         raise HTTPException(status_code=404, detail="Information not found")
 
-    return JSONResponse(content=jsonable_encoder(switch))
+    return cast(Switch, switch)
 
 
-def get_kit(db: Session, uuid: UUID) -> JSONResponse:
+def get_kit(db: Session, uuid: UUID) -> Kits:
     query = select(Kits).where(Kits.id == uuid)
     result = db.execute(query)
     kits = result.scalar_one_or_none()
@@ -62,10 +61,10 @@ def get_kit(db: Session, uuid: UUID) -> JSONResponse:
     if kits is None:
         raise HTTPException(status_code=404, detail="Information not found")
 
-    return JSONResponse(content=jsonable_encoder(kits))
+    return cast(Kits, kits)
 
 
-def get_lubricant(db: Session, uuid: UUID) -> JSONResponse:
+def get_lubricant(db: Session, uuid: UUID) -> Lubricant:
     query = select(Lubricant).where(Lubricant.id == uuid)
     result = db.execute(query)
     lubricant = result.scalar_one_or_none()
@@ -73,10 +72,10 @@ def get_lubricant(db: Session, uuid: UUID) -> JSONResponse:
     if lubricant is None:
         raise HTTPException(status_code=404, detail="Information not found")
 
-    return JSONResponse(content=jsonable_encoder(lubricant))
+    return cast(Lubricant, lubricant)
 
 
-def get_build(db: Session, uuid: UUID) -> JSONResponse:
+def get_build(db: Session, uuid: UUID) -> Builds:
     query = select(Builds).where(Builds.id == uuid)
     result = db.execute(query)
     build = result.scalar_one_or_none()
@@ -84,4 +83,4 @@ def get_build(db: Session, uuid: UUID) -> JSONResponse:
     if build is None:
         raise HTTPException(status_code=404, detail="Information not found")
 
-    return JSONResponse(content=jsonable_encoder(build))
+    return cast(Builds, build)
