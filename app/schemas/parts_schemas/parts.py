@@ -3,7 +3,7 @@ from typing import List, Optional
 from uuid import UUID
 
 
-class KeycapSchema(BaseModel):
+class KeycapSchema(BaseModel):  # type: ignore[misc]
     price: Optional[float] = None
     id: UUID
     vendor: Optional[List[str]] = None
@@ -19,7 +19,7 @@ class KeycapSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SwitchSchema(BaseModel):
+class SwitchSchema(BaseModel):  # type: ignore[misc]
     price: Optional[float] = None
     id: UUID
     vendor: Optional[List[str]] = None
@@ -34,7 +34,7 @@ class SwitchSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class KitsSchema(BaseModel):
+class KitsSchema(BaseModel):  # type: ignore[misc]
     id: UUID
     name: Optional[str] = None
     price: Optional[float] = None
@@ -60,7 +60,7 @@ class KitsSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class LubricantsSchema(BaseModel):
+class LubricantsSchema(BaseModel):  # type: ignore[misc]
     id: UUID
     name: Optional[str] = None
     price: Optional[float] = None

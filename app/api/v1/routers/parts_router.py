@@ -5,14 +5,13 @@ from fastapi_pagination.ext.sqlalchemy import paginate
 from fastapi_filter import FilterDepends
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 
 from app.db.database import get_db
 from app.db import crud
 from app.db.models.builder import Keycap, Switch, Kits, Lubricant
 from app.schemas.parts_schemas.parts import KeycapSchema, SwitchSchema, KitsSchema, LubricantsSchema
-from app.schemas.parts_schemas.parts_filters import KeycapFilter
+from app.schemas.parts_schemas.parts_filters import KeycapFilter, SwitchFilter, KitsFilter
 
 
 router = APIRouter()
@@ -24,6 +23,7 @@ def get_keycaps(db: Session = Depends(get_db),
     try:
         query = select(Keycap)
         query = keycap_filter.filter(query)
+        query = keycap_filter.sort(query)
         result: Page[KeycapSchema] = paginate(db, query)
         return result
     except Exception:
@@ -39,9 +39,11 @@ async def keycap(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
 
 
 @router.get("/parts/switches", response_model=Page[SwitchSchema])
-def get_switches(db: Session = Depends(get_db)) -> Page[SwitchSchema]:
+def get_switches(db: Session = Depends(get_db),
+                 switch_filter: SwitchFilter = FilterDepends(SwitchFilter)) -> Page[SwitchSchema]:
     try:
         query = select(Switch)
+        query = switch_filter.filter(query)
         result: Page[SwitchSchema] = paginate(db, query)
         return result
     except Exception:
@@ -57,9 +59,11 @@ async def switch(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
 
 
 @router.get("/parts/kits", response_model=Page[KitsSchema])
-def get_kits(db: Session = Depends(get_db)) -> Page[KitsSchema]:
+def get_kits(db: Session = Depends(get_db),
+             kits_filter: KitsFilter = FilterDepends(KitsFilter)) -> Page[KitsSchema]:
     try:
         query = select(Kits)
+        query = kits_filter.filter(query)
         result: Page[KitsSchema] = paginate(db, query)
         return result
     except Exception:

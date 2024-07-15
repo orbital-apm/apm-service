@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import ARRAY, String, ForeignKey, Numeric
+from sqlalchemy import ARRAY, ForeignKey, Numeric, VARCHAR
 from sqlalchemy.orm import Mapped, mapped_column  # type: ignore[attr-defined]
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.database import Base
@@ -23,8 +23,8 @@ class Switch(Base):  # type: ignore
     travel_distance: Mapped[Numeric] = mapped_column(Numeric(10, 2),
                                                      unique=False,
                                                      nullable=True)
-    vendor: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False,
-                                              nullable=True)
+    vendor: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                  nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
     availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
@@ -41,15 +41,15 @@ class Keycap(Base):  # type: ignore
     price: Mapped[Numeric] = mapped_column(Numeric(10, 2), unique=False,
                                            nullable=True)
     manufacturer: Mapped[str] = mapped_column(unique=False, nullable=True)
-    vendor: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False,
-                                              nullable=True)
-    colors: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False,
-                                              nullable=True)
-    layout: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False,
-                                              nullable=True)
+    vendor: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                  nullable=True)
+    colors: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                  nullable=True)
+    layout: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                  nullable=True)
     material: Mapped[str] = mapped_column(unique=False, nullable=True)
-    profile: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False,
-                                               nullable=True)
+    profile: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                   nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
     availability: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
@@ -77,15 +77,13 @@ class Kits(Base):  # type: ignore
     price: Mapped[Numeric] = mapped_column(Numeric(10, 2), unique=False,
                                            nullable=True)
     manufacturer: Mapped[str] = mapped_column(unique=False, nullable=True)
-    vendor: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False,
-                                              nullable=True)
+    vendor: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                  nullable=True)
 
-    layout_size: Mapped[list[str]] = mapped_column(ARRAY(String),
-                                                   unique=False,
-                                                   nullable=True)
-    layout_standard: Mapped[list[str]] = mapped_column(ARRAY(String),
-                                                       unique=False,
+    layout_size: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
                                                        nullable=True)
+    layout_standard: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                           nullable=True)
     layout_ergonomic: Mapped[str] = mapped_column(unique=False, nullable=True)
 
     hotswappable: Mapped[bool] = mapped_column(unique=False, nullable=True)
@@ -93,8 +91,8 @@ class Kits(Base):  # type: ignore
     rgb_support: Mapped[bool] = mapped_column(unique=False, nullable=True)
     display_support: Mapped[bool] = mapped_column(unique=False, nullable=True)
 
-    connection: Mapped[list[str]] = mapped_column(ARRAY(String), unique=False,
-                                                  nullable=True)
+    connection: Mapped[list[VARCHAR]] = mapped_column(ARRAY(VARCHAR), unique=False,
+                                                      nullable=True)
     mount_style: Mapped[str] = mapped_column(unique=False, nullable=True)
     material: Mapped[str] = mapped_column(unique=False, nullable=True)
     img_url: Mapped[str] = mapped_column(unique=False, nullable=True)
