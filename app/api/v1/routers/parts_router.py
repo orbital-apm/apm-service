@@ -27,7 +27,7 @@ def get_keycaps(db: Session = Depends(get_db),
         result: Page[KeycapSchema] = paginate(db, query)
         return result
     except Exception:
-        raise Exception
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.get("/parts/keycaps/{id}")
@@ -35,7 +35,7 @@ async def keycap(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
     try:
         return crud.get_keycap(db, id)
     except Exception:
-        raise Exception
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.get("/parts/switches", response_model=Page[SwitchSchema])
