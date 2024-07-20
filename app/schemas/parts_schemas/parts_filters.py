@@ -7,10 +7,10 @@ from app.db.models.builder import Keycap, Switch, Kits
 
 class KeycapFilter(Filter):  # type: ignore[misc]
     vendor: Optional[list[str]] = Query(None)
-#   vendor__in: Optional[list[str]] = Query(None)
+    vendor__in: Optional[list[str]] = Query(None)
     layout: Optional[list[str]] = Query(None)
 #   layout__in: Optional[list[str]] = Query(None)
-    material: Optional[str] = Query(None)
+    material__in: Optional[list[str]] = Query(None)
     profile: Optional[list[str]] = Query(None)
 #   profile__in: Optional[list[str]] = Query(None)
     availability: Optional[bool] = None
