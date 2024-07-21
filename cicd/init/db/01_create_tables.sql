@@ -74,7 +74,7 @@ CREATE TABLE public."builds" (
     kit_choice TEXT,
     switch_choice TEXT,
     keycap_choice TEXT,
-    lubricant_choice TEXT,
+    lubricant_choice TEXT
 );
 
 

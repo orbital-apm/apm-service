@@ -6,13 +6,13 @@ INSERT INTO public."users" (username, email, password) VALUES
 
 -- Populate the 'keycaps' table
 INSERT INTO public."keycaps" (name, price, manufacturer, vendor, colors, layout, material, profile, img_url, availability) VALUES
-('Skyloong Neon', 39.0, 'Skyloong', ARRAY["Epomaker"], ARRAY[], ARRAY["ANSI"], 'PBT', ARRAY['Cherry'], 'https://example.com/skyloong-neon.jpg', true),
-('Diykeycap Red Samurai', 42.0, 'Diykeycap', ARRAY["Diykeycap"], ARRAY[], ARRAY["ISO","ANSI"], 'ABS', ARRAY['NSA'], 'https://example.com/diykeycap-red-samurai.jpg', true),
-("Keyreative Cat's Eye", 31.0, 'Keyreative', ARRAY["zFrontier"], ARRAY[], ARRAY["ISO"], 'PC', ARRAY['Cherry'], 'https://example.com/keyreative-cat-eye.jpg', false);
+('Skyloong Neon', 39.0, 'Skyloong', ARRAY['Epomaker'], ARRAY['Red', 'Black'], ARRAY['ANSI'], 'PBT', ARRAY['Cherry'], 'https://example.com/skyloong-neon.jpg', true),
+('Diykeycap Red Samurai', 42.0, 'Diykeycap', ARRAY['Diykeycap'], ARRAY['Red', 'White'], ARRAY['ISO', 'ANSI'], 'ABS', ARRAY['NSA'], 'https://example.com/diykeycap-red-samurai.jpg', true),
+('Keyreative Cat Eye', 31.0, 'Keyreative', ARRAY['zFrontier'], ARRAY['Blue', 'Black'], ARRAY['ISO'], 'PC', ARRAY['Cherry'], 'https://example.com/keyreative-cat-eye.jpg', false);
 
 -- Populate the 'switches' table
 INSERT INTO public."switches" (name, price, manufacturer, switch_type, actuation_force, travel_distance, vendor, img_url, availability) VALUES
-('Ktt Strawberry', 0.29, 'Ktt', 'Linear', 62.0, 4.0, ARRAY["MK"], 'https://example.com/ktt-strawberry.jpg', true),
+('Ktt Strawberry', 0.29, 'Ktt', 'Linear', 62.0, 4.0, ARRAY['MK'], 'https://example.com/ktt-strawberry.jpg', true),
 ('Epomaker Comte Semisilent', 0.72, 'Epomaker', 'Silent Linear', 67.0, 3.8, ARRAY['Amazon'], 'https://example.com/epomaker-comte-semisilent.jpg', true),
 ('Kailh BOX Jade Clicky', 0.51, 'Kailh', 'Clicky', 50.0, 3.6, ARRAY['Dangkeebs'], 'https://example.com/kailh-box-jade-clicky.jpg', false);
 

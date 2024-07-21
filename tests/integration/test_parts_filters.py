@@ -42,6 +42,12 @@ def test_keycap_filter_invalid_vendor() -> None:
     assert response.status_code == 404
 
 
+def test_keycap_filter_multiple_vendors() -> None:  # Expected behaviour: To return the item that has BOTH vendors
+    response = client.get("/v1/parts/keycaps?vendor=Vendor1,Vendor2")
+
+    assert response.status_code == 200
+
+
 def test_keycap_filter_layout() -> None:
     response = client.get("/v1/parts/keycaps?layout=ANSI")
 
