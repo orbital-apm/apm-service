@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import ARRAY, ForeignKey, Numeric, VARCHAR
+from sqlalchemy import ARRAY, Numeric, VARCHAR
 from sqlalchemy.orm import Mapped, mapped_column  # type: ignore[attr-defined]
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.database import Base

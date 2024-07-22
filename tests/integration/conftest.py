@@ -5,7 +5,6 @@ import pytest
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
-from app.db.database import Base
 from app.db.models.user import UserEntity
 
 load_dotenv()
