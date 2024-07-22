@@ -81,7 +81,7 @@ class KitsFilter(Filter):  # type: ignore[misc]
         search_field_name = "custom_search"
         search_model_fields = ['name', 'manufacturer', 'layout_size', 'layout_standard', 'connection']
 
-    @field_validator('layout_size', 'layout_standard', 'connection', mode='before')
+    @field_validator('vendor', 'layout_size', 'layout_standard', 'connection', mode='before')
     @classmethod
     def split_str_to_list(cls, value: Optional[list[str] | str]) -> Optional[list[str]]:
         if isinstance(value, str):
