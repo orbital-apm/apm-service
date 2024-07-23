@@ -10,7 +10,7 @@ def test_kits_valid_all() -> None:
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data['items']) == 3
+    assert len(data['items']) == 4
 
 
 def test_pagination() -> None:
@@ -62,7 +62,7 @@ def test_kits_filter_invalid_layout_size() -> None:
 
 
 def test_kits_filter_multiple_layout_sizes() -> None:  # Todo: Add data for MULTIPLE LAYOUTS
-    response = client.get("/v1/parts/kits?layout_size=65%,100%")
+    response = client.get("/v1/parts/kits?layout_size=65%,Split")
 
     assert response.status_code == 200
     data = response.json()
@@ -114,7 +114,7 @@ def test_kits_filter_valid_hotswappable() -> None:
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data['items']) == 2
+    assert len(data['items']) == 3
 
 
 def test_kits_filter_invalid_hotswappable() -> None:
@@ -128,7 +128,7 @@ def test_kits_filter_valid_knob_support() -> None:
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data['items']) == 3
+    assert len(data['items']) == 4
 
 
 def test_kits_filter_invalid_knob_support() -> None:
@@ -210,7 +210,7 @@ def test_kits_filter_valid_availability() -> None:
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data['items']) == 2
+    assert len(data['items']) == 3
 
 
 def test_kits_filter_invalid_availability() -> None:

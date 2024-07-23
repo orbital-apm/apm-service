@@ -8,7 +8,8 @@ INSERT INTO public."users" (username, email, password) VALUES
 INSERT INTO public."keycaps" (name, price, manufacturer, vendor, colors, layout, material, profile, img_url, availability) VALUES
 ('Skyloong Neon', 39.0, 'Skyloong', ARRAY['Epomaker'], ARRAY['Red', 'Black'], ARRAY['ANSI'], 'PBT', ARRAY['Cherry'], 'https://example.com/skyloong-neon.jpg', true),
 ('Diykeycap Red Samurai', 42.0, 'Diykeycap', ARRAY['Diykeycap'], ARRAY['Red', 'White'], ARRAY['ISO', 'ANSI'], 'ABS', ARRAY['NSA'], 'https://example.com/diykeycap-red-samurai.jpg', true),
-('Keyreative Cat Eye', 31.0, 'Keyreative', ARRAY['zFrontier'], ARRAY['Blue', 'Black'], ARRAY['ISO'], 'PC', ARRAY['Cherry'], 'https://example.com/keyreative-cat-eye.jpg', false);
+('Keyreative Cat Eye', 31.0, 'Keyreative', ARRAY['zFrontier'], ARRAY['Blue', 'Black'], ARRAY['ISO'], 'PC', ARRAY['Cherry'], 'https://example.com/keyreative-cat-eye.jpg', false),
+('GMK Expensive', 31.0, 'Keyreative', ARRAY['zFrontier', 'Diykeycap'], ARRAY['Blue', 'Black'], ARRAY['ISO'], 'PC', ARRAY['Cherry', 'NSA'], 'https://example.com/keyreative-cat-eye.jpg', false);
 
 -- Populate the 'switches' table
 INSERT INTO public."switches" (name, price, manufacturer, switch_type, actuation_force, travel_distance, vendor, img_url, availability) VALUES
@@ -20,7 +21,8 @@ INSERT INTO public."switches" (name, price, manufacturer, switch_type, actuation
 INSERT INTO public."kits" (name, price, manufacturer, vendor, layout_size, layout_standard, layout_ergonomic, hotswappable, knob_support, rgb_support, display_support, connection, mount_style, material, img_url, availability) VALUES
 ('Tofu65', 185.00, 'KBDfans', ARRAY['KBDfans'], ARRAY['65%'], ARRAY['ANSI'],'Southpaw', true, false, true, false, ARRAY['Wired, Wireless'], 'Gasket Mount', 'Aluminum', 'https://example.com/tofu65.jpg', true),
 ('Discipline65', 115.00, 'CFTKB', ARRAY['CFTKB'], ARRAY['100%'], ARRAY['ANSI'], 'Normal', false, false, false, false, ARRAY['Wired'], 'Plate Mount', 'Metal', 'https://example.com/discipline65.jpg', false),
-('Keychron Q5 Pro', 270.00, 'Keychron', ARRAY['Keychron'], ARRAY['Split'], ARRAY['Ortholinear'], 'Alice', true, false, true, true, ARRAY['2.4Ghz, Wireless'], 'Tray Mount', 'Plastic', 'https://example.com/keychron-95.jpg', true);
+('Keychron Q5 Pro', 270.00, 'Keychron', ARRAY['Keychron'], ARRAY['Split'], ARRAY['Ortholinear'], 'Alice', true, false, true, true, ARRAY['2.4Ghz, Wireless'], 'Tray Mount', 'Plastic', 'https://example.com/keychron-95.jpg', true),
+('Erisu', 270.00, 'Keychron', ARRAY['Keychron', 'KBDFans'], ARRAY['65%', 'Split'], ARRAY['ANSI', 'Ortholinear'], 'Alice', true, false, true, true, ARRAY['2.4Ghz, Wireless'], 'Tray Mount', 'Plastic', 'https://example.com/keychron-95.jpg', true);
 
 -- Populate the 'lubricants' table
 INSERT INTO public."lubricants" (name, price, img_url, availability) VALUES

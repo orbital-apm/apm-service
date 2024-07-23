@@ -10,7 +10,7 @@ def test_keycaps_valid_all() -> None:
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data['items']) == 3
+    assert len(data['items']) == 4
 
 
 def test_pagination() -> None:
@@ -74,7 +74,7 @@ def test_keycap_filter_valid_material__in() -> None:  # Expected behaviour: To r
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data['items']) == 2
+    assert len(data['items']) == 3
 
 
 def test_keycap_filter_valid_profile() -> None:
@@ -112,6 +112,4 @@ def test_keycap_filter_valid_availability() -> None:
 def test_keycap_filter_invalid_availability() -> None:  # Todo: Fix this code
     response = client.get("/v1/parts/keycaps?availability=2")
 
-    assert response.status_code == 200
-    data = response.json()
-    assert len(data['items']) == 0
+    assert response.status_code == 422
