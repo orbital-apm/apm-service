@@ -38,11 +38,11 @@ def test_keycap_filter_invalid_vendor() -> None:
 
 
 def test_keycap_filter_multiple_vendors() -> None:  # Expected behaviour: To return the item that has BOTH vendors
-    response = client.get("/v1/parts/keycaps?vendor=ZFrontier,Diykeycap")
+    response = client.get("/v1/parts/keycaps?vendor=zFrontier,Diykeycap")
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data['items']) == 1  # S
+    assert len(data['items']) == 1
 
 
 def test_keycap_filter_valid_layout() -> None:
@@ -62,7 +62,7 @@ def test_keycap_filter_invalid_layout() -> None:
 
 
 def test_keycap_filter_multiple_layouts() -> None:  # Todo: Add data for MULTIPLE LAYOUTS
-    response = client.get("/v1/parts/keycaps?layout=ANSI,ISO")
+    response = client.get("/v1/parts/keycaps?layout=ISO,ANSI")
 
     assert response.status_code == 200
     data = response.json()
