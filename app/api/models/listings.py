@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from uuid import UUID
+from datetime import datetime
 
 
 class GenerateListing(BaseModel):  # type: ignore[misc]
@@ -13,4 +14,4 @@ class GenerateListing(BaseModel):  # type: ignore[misc]
 class ListingsResponse(GenerateListing):
     id: UUID
     user_id: UUID
-    created_at: str
+    created_at: datetime
