@@ -3,8 +3,6 @@ from sqlalchemy.orm import Mapped, mapped_column  # type: ignore[attr-defined]
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.database import Base
 
-# Registered users table
-
 
 class UserEntity(Base):  # type: ignore[misc]
     __tablename__ = "users"
