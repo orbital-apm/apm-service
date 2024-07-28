@@ -8,8 +8,8 @@ from sqlalchemy import select
 from uuid import UUID
 
 from app.db.database import get_db
-from app.db import crud
-from app.db.models.builder import Keycap, Switch, Kits, Lubricant
+from app.db.crud import crud_parts
+from app.db.models.parts import Keycap, Switch, Kits, Lubricant
 from app.schemas.parts_schemas.parts import KeycapSchema, SwitchSchema, KitsSchema, LubricantsSchema
 from app.schemas.parts_schemas.parts_filters import KeycapFilter, SwitchFilter, KitsFilter
 
@@ -27,13 +27,13 @@ def get_keycaps(db: Session = Depends(get_db),
         result: Page[KeycapSchema] = paginate(db, query)
         return result
     except Exception:
-        raise Exception
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.get("/parts/keycaps/{id}")
 async def keycap(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
     try:
-        return crud.get_keycap(db, id)
+        return crud_parts.get_keycap(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -53,7 +53,7 @@ def get_switches(db: Session = Depends(get_db),
 @router.get("/parts/switches/{id}")
 async def switch(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
     try:
-        return crud.get_switch(db, id)
+        return crud_parts.get_switch(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -73,7 +73,7 @@ def get_kits(db: Session = Depends(get_db),
 @router.get("/parts/kits/{id}")
 async def kit(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
     try:
-        return crud.get_kit(db, id)
+        return crud_parts.get_kit(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -91,7 +91,7 @@ def get_lubricants(db: Session = Depends(get_db)) -> Page[LubricantsSchema]:
 @router.get("/parts/lubricants/{id}")
 async def lubricant(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
     try:
-        return crud.get_lubricant(db, id)
+        return crud_parts.get_lubricant(db, id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
