@@ -24,7 +24,6 @@ def marketplace(db: Session = Depends(get_db), listings_filter: ListingsFilter =
     try:
         query = select(Listings)
         query = listings_filter.filter(query)
-        db.execute
         result: Page[ListingsSchema] = paginate(db.execute(query).scalars().all())
         return result
     except Exception:

@@ -37,6 +37,7 @@ def decode_jwt(token: str) -> str:
             options={"verify_exp": True}
         )
         return decoded_token.get("sub")
+    
     except jwt.ExpiredSignatureError:
         raise ValueError("Token has expired")
     except jwt.InvalidTokenError:
