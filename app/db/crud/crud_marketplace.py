@@ -6,7 +6,7 @@ from typing import cast
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
 from app.db.models.marketplace import Listings
-from app.schemas.marketplace_schemas import ListingsSchema
+from app.schemas.marketplace_schemas.marketplace_schemas import ListingsSchema
 
 
 def get_listings(db: Session) -> Page[ListingsSchema]:
