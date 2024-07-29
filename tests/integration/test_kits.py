@@ -94,7 +94,7 @@ def test_kits_filter_multiple_layout_standards() -> None:  # Todo: Add data for 
 
 
 def test_kits_filter_valid_layout_ergonomic() -> None:
-    response = client.get("/v1/parts/kits?layout_ergonomic=Southpaw")
+    response = client.get("/v1/parts/kits?layout_ergonomic__in=Southpaw")
 
     assert response.status_code == 200
     data = response.json()
@@ -102,7 +102,7 @@ def test_kits_filter_valid_layout_ergonomic() -> None:
 
 
 def test_kits_filter_invalid_layout_ergonomic() -> None:
-    response = client.get("/v1/parts/kits?layout_ergonomic=Northpaw")
+    response = client.get("/v1/parts/kits?layout_ergonomic__in=Northpaw")
 
     assert response.status_code == 200
     data = response.json()
@@ -110,7 +110,7 @@ def test_kits_filter_invalid_layout_ergonomic() -> None:
 
 
 def test_kits_filter_valid_hotswappable() -> None:
-    response = client.get("/v1/parts/kits?hotswappable=true")
+    response = client.get("/v1/parts/kits?hotswappable__in=true")
 
     assert response.status_code == 200
     data = response.json()
@@ -118,13 +118,13 @@ def test_kits_filter_valid_hotswappable() -> None:
 
 
 def test_kits_filter_invalid_hotswappable() -> None:
-    response = client.get("/v1/parts/kits?hotswappable=2")
+    response = client.get("/v1/parts/kits?hotswappable__in=2")
 
     assert response.status_code == 422
 
 
 def test_kits_filter_valid_knob_support() -> None:
-    response = client.get("/v1/parts/kits?knob_support=False")
+    response = client.get("/v1/parts/kits?knob_support__in=False")
 
     assert response.status_code == 200
     data = response.json()
@@ -132,13 +132,13 @@ def test_kits_filter_valid_knob_support() -> None:
 
 
 def test_kits_filter_invalid_knob_support() -> None:
-    response = client.get("/v1/parts/kits?knob_support=Flse")
+    response = client.get("/v1/parts/kits?knob_support__in=Flse")
 
     assert response.status_code == 422
 
 
 def test_kits_filter_valid_rgb_support() -> None:
-    response = client.get("/v1/parts/kits?rgb_support=False")
+    response = client.get("/v1/parts/kits?rgb_support__in=False")
 
     assert response.status_code == 200
     data = response.json()
@@ -146,13 +146,13 @@ def test_kits_filter_valid_rgb_support() -> None:
 
 
 def test_kits_filter_invalid_rgb_support() -> None:
-    response = client.get("/v1/parts/kits?rgb_support=Flse")
+    response = client.get("/v1/parts/kits?rgb_support__in=Flse")
 
     assert response.status_code == 422
 
 
 def test_kits_filter_valid_display_support() -> None:
-    response = client.get("/v1/parts/kits?display_support=False")
+    response = client.get("/v1/parts/kits?display_support__in=False")
 
     assert response.status_code == 200
     data = response.json()
@@ -160,7 +160,7 @@ def test_kits_filter_valid_display_support() -> None:
 
 
 def test_kits_filter_invalid_display_support() -> None:
-    response = client.get("/v1/parts/kits?display_support=Flse")
+    response = client.get("/v1/parts/kits?display_support__in=Flse")
 
     assert response.status_code == 422
 
@@ -189,8 +189,24 @@ def test_kits_filter_invalid_connection() -> None:
 #     assert len(data['items']) == 1
 
 
+def test_kits_filter_valid_mount_style() -> None:
+    response = client.get("/v1/parts/kits?mount_style__in=Tray+Mount")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data['items']) == 2
+
+
+def test_kits_filter_invalid_mount_style() -> None:
+    response = client.get("/v1/parts/kits?mount_style__in=Maglev+Mountain")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data['items']) == 0
+
+
 def test_kits_filter_valid_material() -> None:
-    response = client.get("/v1/parts/kits?material=Metal")
+    response = client.get("/v1/parts/kits?material__in=Metal")
 
     assert response.status_code == 200
     data = response.json()
@@ -198,7 +214,7 @@ def test_kits_filter_valid_material() -> None:
 
 
 def test_kits_filter_invalid_material() -> None:
-    response = client.get("/v1/parts/kits?material=invalid")
+    response = client.get("/v1/parts/kits?material__in=invalid")
 
     assert response.status_code == 200
     data = response.json()
@@ -206,7 +222,7 @@ def test_kits_filter_invalid_material() -> None:
 
 
 def test_kits_filter_valid_availability() -> None:
-    response = client.get("/v1/parts/kits?availability=true")
+    response = client.get("/v1/parts/kits?availability__in=true")
 
     assert response.status_code == 200
     data = response.json()
@@ -214,6 +230,6 @@ def test_kits_filter_valid_availability() -> None:
 
 
 def test_kits_filter_invalid_availability() -> None:
-    response = client.get("/v1/parts/kits?availability=2")
+    response = client.get("/v1/parts/kits?availability__in=2")
 
     assert response.status_code == 422
