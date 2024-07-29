@@ -32,8 +32,8 @@ def test_profile_filter(keycap_filter: KeycapFilter) -> None:
 
 
 def test_availability_filter(keycap_filter: KeycapFilter) -> None:
-    keycap_filter.availability = True
-    assert keycap_filter.availability is True
+    keycap_filter.availability__in = [True]
+    assert keycap_filter.availability__in == [True]
 
 
 def test_custom_order_by(keycap_filter: KeycapFilter) -> None:
@@ -70,7 +70,7 @@ def test_invalid_profile_filter(keycap_filter: KeycapFilter) -> None:
 
 def test_invalid_availability_filter(keycap_filter: KeycapFilter) -> None:
     with pytest.raises(ValidationError):
-        KeycapFilter(availability="Available")
+        KeycapFilter(availability__in="Available")
 
 
 def test_invalid_custom_order_by(keycap_filter: KeycapFilter) -> None:

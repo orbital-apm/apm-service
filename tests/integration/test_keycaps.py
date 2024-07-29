@@ -102,14 +102,14 @@ def test_keycap_filter_multiple_profiles() -> None:  # Todo: Add data to fulfill
 
 
 def test_keycap_filter_valid_availability() -> None:
-    response = client.get("/v1/parts/keycaps?availability=True")
+    response = client.get("/v1/parts/keycaps?availability__in=True")
 
     assert response.status_code == 200
     data = response.json()
     assert len(data['items']) == 2
 
 
-def test_keycap_filter_invalid_availability() -> None:  # Todo: Fix this code
-    response = client.get("/v1/parts/keycaps?availability=2")
+def test_keycap_filter_invalid_availability() -> None:
+    response = client.get("/v1/parts/keycaps?availability__in=2")
 
     assert response.status_code == 422

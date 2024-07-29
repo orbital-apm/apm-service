@@ -38,7 +38,7 @@ def test_switches_filter_multiple_vendors() -> None:  # Expected behaviour: To r
 
 
 def test_switches_filter_valid_switch_type() -> None:
-    response = client.get("/v1/parts/switches?switch_type=Linear")
+    response = client.get("/v1/parts/switches?switch_type__in=Linear")
 
     assert response.status_code == 200
     data = response.json()
@@ -46,7 +46,7 @@ def test_switches_filter_valid_switch_type() -> None:
 
 
 def test_switches_filter_invalid_switch_type() -> None:
-    response = client.get("/v1/parts/switches?switch_type=Silent")
+    response = client.get("/v1/parts/switches?switch_type__in=Silent")
 
     assert response.status_code == 200
     data = response.json()
@@ -54,7 +54,7 @@ def test_switches_filter_invalid_switch_type() -> None:
 
 
 def test_switches_filter_valid_manufacturer() -> None:
-    response = client.get("/v1/parts/switches?manufacturer=Ktt")
+    response = client.get("/v1/parts/switches?manufacturer__in=Ktt")
 
     assert response.status_code == 200
     data = response.json()
@@ -62,7 +62,7 @@ def test_switches_filter_valid_manufacturer() -> None:
 
 
 def test_switches_filter_invalid_manufacturer() -> None:
-    response = client.get("/v1/parts/switches?manufacturer=invalid")
+    response = client.get("/v1/parts/switches?manufacturer__in=invalid")
 
     assert response.status_code == 200
     data = response.json()
@@ -70,7 +70,7 @@ def test_switches_filter_invalid_manufacturer() -> None:
 
 
 def test_switches_filter_valid_availability() -> None:
-    response = client.get("/v1/parts/switches?availability=True")
+    response = client.get("/v1/parts/switches?availability__in=True")
 
     assert response.status_code == 200
     data = response.json()
@@ -78,6 +78,6 @@ def test_switches_filter_valid_availability() -> None:
 
 
 def test_switches_filter_invalid_availability() -> None:
-    response = client.get("/v1/parts/switches?availability=1313")
+    response = client.get("/v1/parts/switches?availability__in=1313")
 
     assert response.status_code == 422

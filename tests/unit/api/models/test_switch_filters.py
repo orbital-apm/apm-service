@@ -12,8 +12,8 @@ def switch_filter() -> SwitchFilter:
 
 
 def test_switch_type_filter(switch_filter: SwitchFilter) -> None:
-    switch_filter.switch_type = "Linear"
-    assert switch_filter.switch_type == "Linear"
+    switch_filter.switch_type__in = ["Linear"]
+    assert switch_filter.switch_type__in == ["Linear"]
 
 
 def test_vendor_filter(switch_filter: SwitchFilter) -> None:
@@ -22,13 +22,13 @@ def test_vendor_filter(switch_filter: SwitchFilter) -> None:
 
 
 def test_manufacturer_filter(switch_filter: SwitchFilter) -> None:
-    switch_filter.manufacturer = "Manufacturer-1"
-    assert switch_filter.manufacturer == "Manufacturer-1"
+    switch_filter.manufacturer__in = ["Manufacturer-1"]
+    assert switch_filter.manufacturer__in == ["Manufacturer-1"]
 
 
 def test_availability_filter(switch_filter: SwitchFilter) -> None:
-    switch_filter.availability = True
-    assert switch_filter.availability is True
+    switch_filter.availability__in = [True]
+    assert switch_filter.availability__in == [True]
 
 
 def test_custom_order_by(switch_filter: SwitchFilter) -> None:
@@ -45,7 +45,7 @@ def test_custom_search(switch_filter: SwitchFilter) -> None:
 
 def test_invalid_switch_type_filter(switch_filter: SwitchFilter) -> None:
     with pytest.raises(ValidationError):
-        SwitchFilter(switch_type=1)
+        SwitchFilter(switch_type__in=1)
 
 
 def test_invalid_vendor_filter(switch_filter: SwitchFilter) -> None:
@@ -55,12 +55,12 @@ def test_invalid_vendor_filter(switch_filter: SwitchFilter) -> None:
 
 def test_invalid_manufacturer_filter(switch_filter: SwitchFilter) -> None:
     with pytest.raises(ValidationError):
-        SwitchFilter(manufacturer=1)
+        SwitchFilter(manufacturer__in=1)
 
 
 def test_invalid_availability_filter(switch_filter: SwitchFilter) -> None:
     with pytest.raises(ValidationError):
-        SwitchFilter(availability="Available")
+        SwitchFilter(availability__in="Available")
 
 
 def test_invalid_custom_order_by(switch_filter: SwitchFilter) -> None:

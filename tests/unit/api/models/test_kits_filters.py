@@ -17,8 +17,8 @@ def test_vendor_filter(kits_filter: KitsFilter) -> None:
 
 
 def test_manufacturer_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.manufacturer = "Manufacturer-1"
-    assert kits_filter.manufacturer == "Manufacturer-1"
+    kits_filter.manufacturer__in = ["Manufacturer-1"]
+    assert kits_filter.manufacturer__in == ["Manufacturer-1"]
 
 
 def test_layout_size_filter(kits_filter: KitsFilter) -> None:
@@ -32,28 +32,28 @@ def test_layout_standard_filter(kits_filter: KitsFilter) -> None:
 
 
 def test_layout_ergonomic_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.layout_ergonomic = "Split"
-    assert kits_filter.layout_ergonomic == "Split"
+    kits_filter.layout_ergonomic__in = ["Split"]
+    assert kits_filter.layout_ergonomic__in == ["Split"]
 
 
 def test_hotswappable_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.hotswappable = True
-    assert kits_filter.hotswappable is True
+    kits_filter.hotswappable__in = [True]
+    assert kits_filter.hotswappable__in == [True]
 
 
 def test_knob_support_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.knob_support = True
-    assert kits_filter.knob_support is True
+    kits_filter.knob_support__in = [True]
+    assert kits_filter.knob_support__in == [True]
 
 
 def test_rgb_support_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.rgb_support = True
-    assert kits_filter.rgb_support is True
+    kits_filter.rgb_support__in = [True]
+    assert kits_filter.rgb_support__in == [True]
 
 
 def test_display_support_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.display_support = True
-    assert kits_filter.display_support is True
+    kits_filter.display_support__in = [True]
+    assert kits_filter.display_support__in == [True]
 
 
 def test_connection_filter(kits_filter: KitsFilter) -> None:
@@ -62,13 +62,13 @@ def test_connection_filter(kits_filter: KitsFilter) -> None:
 
 
 def test_material_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.material = "Aluminum"
-    assert kits_filter.material == "Aluminum"
+    kits_filter.material__in = ["Aluminum"]
+    assert kits_filter.material__in == ["Aluminum"]
 
 
 def test_availability_filter(kits_filter: KitsFilter) -> None:
-    kits_filter.availability = True
-    assert kits_filter.availability is True
+    kits_filter.availability__in = [True]
+    assert kits_filter.availability__in == [True]
 
 
 def test_custom_order_by(kits_filter: KitsFilter) -> None:
@@ -90,7 +90,7 @@ def test_invalid_vendor_filter(kits_filter: KitsFilter) -> None:
 
 def test_invalid_manufacturer_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(manufacturer=1)
+        KitsFilter(manufacturer__in=1)
 
 
 def test_invalid_layout_size_filter(kits_filter: KitsFilter) -> None:
@@ -105,27 +105,27 @@ def test_invalid_layout_standard_filter(kits_filter: KitsFilter) -> None:
 
 def test_invalid_layout_ergonomic_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(layout_ergonomic=1)
+        KitsFilter(layout_ergonomic__in=1)
 
 
 def test_invalid_hotswappable_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(hotswappable="invalid")
+        KitsFilter(hotswappable__in="invalid")
 
 
 def test_invalid_knob_support_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(knob_support="invalid")
+        KitsFilter(knob_support__in="invalid")
 
 
 def test_invalid_rgb_support_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(rgb_support="invalid")
+        KitsFilter(rgb_support__in="invalid")
 
 
 def test_invalid_display_support_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(display_support="invalid")
+        KitsFilter(display_support__in="invalid")
 
 
 def test_invalid_connection_filter(kits_filter: KitsFilter) -> None:
@@ -135,12 +135,12 @@ def test_invalid_connection_filter(kits_filter: KitsFilter) -> None:
 
 def test_invalid_material_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(material=1)
+        KitsFilter(material__in=1)
 
 
 def test_invalid_availability_filter(kits_filter: KitsFilter) -> None:
     with pytest.raises(ValidationError):
-        KitsFilter(availability="Available")
+        KitsFilter(availability__in="Available")
 
 
 def test_invalid_custom_order_by(kits_filter: KitsFilter) -> None:

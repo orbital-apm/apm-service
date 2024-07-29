@@ -7,13 +7,13 @@ from app.db.models.parts import Keycap, Switch, Kits
 
 class KeycapFilter(Filter):  # type: ignore[misc]
     vendor: Optional[list[str]] = Query(None)
-    vendor__in: Optional[list[str]] = Query(None)
+#   vendor__in: Optional[list[str]] = Query(None)
     layout: Optional[list[str]] = Query(None)
 #   layout__in: Optional[list[str]] = Query(None)
     material__in: Optional[list[str]] = Query(None)
     profile: Optional[list[str]] = Query(None)
 #   profile__in: Optional[list[str]] = Query(None)
-    availability: Optional[bool] = None
+    availability__in: Optional[list[bool]] = None
     custom_order_by: Optional[list[str]] = Query(None)
     custom_search: Optional[str] = None
 
@@ -21,7 +21,7 @@ class KeycapFilter(Filter):  # type: ignore[misc]
         model = Keycap
         ordering_field_name = "custom_order_by"
         search_field_name = "custom_search"
-        search_model_fields = ["name", "manufacturer", "material"]
+        search_model_fields = ["name", "manufacturer", "material", "vendor", "layout", "profile"]
 
     @field_validator('layout', 'profile', 'vendor', mode='before')
     @classmethod
@@ -32,11 +32,11 @@ class KeycapFilter(Filter):  # type: ignore[misc]
 
 
 class SwitchFilter(Filter):  # type: ignore[misc]
-    switch_type: Optional[str] = None
+    switch_type__in: Optional[list[str]] = None
     vendor: Optional[list[str]] = None
 #   vendor__in: Optional[list[str]] = None
-    manufacturer: Optional[str] = None
-    availability: Optional[bool] = None
+    manufacturer__in: Optional[list[str]] = None
+    availability__in: Optional[list[bool]] = None
     custom_order_by: Optional[list[str]] = Query(None)
     custom_search: Optional[str] = None
 
@@ -44,7 +44,7 @@ class SwitchFilter(Filter):  # type: ignore[misc]
         model = Switch
         ordering_field_name = "custom_order_by"
         search_field_name = "custom_search"
-        search_model_fields = ['name', 'manufacturer', 'switch_type']
+        search_model_fields = ['name', 'manufacturer', 'switch_type', 'vendor']
 
     @field_validator('vendor', mode='before')
     @classmethod
@@ -57,20 +57,20 @@ class SwitchFilter(Filter):  # type: ignore[misc]
 class KitsFilter(Filter):  # type: ignore[misc]
     vendor: Optional[list[str]] = None
 #   vendor__in: Optional[list[str]] = None
-    manufacturer: Optional[str] = None
+    manufacturer__in: Optional[list[str]] = None
     layout_size: Optional[list[str]] = None
 #   layout_size__in: Optional[list[str]] = None
     layout_standard: Optional[list[str]] = None
 #   layout_standard__in: Optional[list[str]] = None
-    layout_ergonomic: Optional[str] = None
-    hotswappable: Optional[bool] = None
-    knob_support: Optional[bool] = None
-    rgb_support: Optional[bool] = None
-    display_support: Optional[bool] = None
+    layout_ergonomic__in: Optional[list[str]] = None
+    hotswappable__in: Optional[list[bool]] = None
+    knob_support__in: Optional[list[bool]] = None
+    rgb_support__in: Optional[list[bool]] = None
+    display_support__in: Optional[list[bool]] = None
     connection: Optional[list[str]] = None
 #   connection__in: Optional[list[str]] = None
-    material: Optional[str] = None
-    availability: Optional[bool] = None
+    material__in: Optional[list[str]] = None
+    availability__in: Optional[list[bool]] = None
 
     custom_order_by: Optional[list[str]] = Query(None)
     custom_search: Optional[str] = None
