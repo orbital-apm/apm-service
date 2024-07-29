@@ -26,3 +26,19 @@ def generate_jwt(user_id: str) -> str:
     token = jwt.encode(payload=claims, key=os.getenv("ACCESS_TOKEN_SECRET_KEY"), algorithm="HS256")
 
     return token
+
+
+def decode_jwt(token: str) -> str:
+    try:
+        decoded_token = jwt.decode(
+            jwt=token,
+            key=os.getenv("ACCESS_TOKEN_SECRET_KEY"),
+            algorithms=["HS256"],
+            options={"verify_exp": True}
+        )
+        return decoded_token.get("sub")
+
+    except jwt.ExpiredSignatureError:
+        raise ValueError("Token has expired")
+    except jwt.InvalidTokenError:
+        raise ValueError("Invalid token")

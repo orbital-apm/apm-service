@@ -6,8 +6,8 @@ from uuid import UUID, uuid4
 
 from app.db.database import get_db
 from app.api.models.builds import GenerateBuild
-from app.db import crud
-from app.db.models.builder import Builds
+from app.db.crud import crud_parts
+from app.db.models.parts import Builds
 
 
 router = APIRouter()
@@ -16,7 +16,7 @@ router = APIRouter()
 @router.get("/builds/{id}")
 async def build(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
     try:
-        return crud.get_build(db, uuid=id)
+        return crud_parts.get_build(db, uuid=id)
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 

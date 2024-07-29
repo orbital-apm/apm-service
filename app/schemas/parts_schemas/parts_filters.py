@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import field_validator
 from fastapi import Query
 from fastapi_filter.contrib.sqlalchemy import Filter
-from app.db.models.builder import Keycap, Switch, Kits
+from app.db.models.parts import Keycap, Switch, Kits
 
 
 class KeycapFilter(Filter):  # type: ignore[misc]

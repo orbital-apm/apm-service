@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from typing import cast
-from app.db.models.builder import Keycap, Switch, Lubricant, Kits, Builds
+from app.db.models.parts import Keycap, Switch, Lubricant, Kits, Builds
 
 
 # Functions for parts listings page:
@@ -48,7 +48,7 @@ def get_switch(db: Session, uuid: UUID) -> Switch:
     switch = result.scalar_one_or_none()
 
     if switch is None:
-        raise HTTPException(status_code=404, detail="Information not found")
+        raise HTTPException(status_code=404, detail="Information not found.")
 
     return cast(Switch, switch)
 
@@ -59,7 +59,7 @@ def get_kit(db: Session, uuid: UUID) -> Kits:
     kits = result.scalar_one_or_none()
 
     if kits is None:
-        raise HTTPException(status_code=404, detail="Information not found")
+        raise HTTPException(status_code=404, detail="Information not found.")
 
     return cast(Kits, kits)
 

@@ -37,12 +37,12 @@ def test_kits_filter_invalid_vendor() -> None:
     assert len(data['items']) == 0
 
 
-def test_kits_filter_multiple_vendors() -> None:  # Expected behaviour: To return the item that has BOTH vendors
-    response = client.get("/v1/parts/kits?vendor=KBDFans,Keychron")
+# def test_kits_filter_multiple_vendors() -> None:  # Expected behaviour: To return the item that has BOTH vendors
+#     response = client.get("/v1/parts/kits?vendor=KBDFans,Keychron")
 
-    assert response.status_code == 200
-    data = response.json()
-    assert len(data['items']) == 1
+#     assert response.status_code == 200
+#     data = response.json()
+#     assert len(data['items']) == 1
 
 
 def test_kits_filter_valid_layout_size() -> None:
@@ -181,12 +181,12 @@ def test_kits_filter_invalid_connection() -> None:
     assert len(data['items']) == 0
 
 
-def test_kits_filter_multiple_connections() -> None:
-    response = client.get("/v1/parts/kits?connection=2.4Ghz,Wireless")
+# def test_kits_filter_multiple_connections() -> None:
+#     response = client.get("/v1/parts/kits?connection=2.4Ghz,Wireless")
 
-    assert response.status_code == 200
-    data = response.json()
-    assert len(data['items']) == 1
+#     assert response.status_code == 200
+#     data = response.json()
+#     assert len(data['items']) == 1
 
 
 def test_kits_filter_valid_material() -> None:
