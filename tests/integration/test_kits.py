@@ -189,6 +189,22 @@ def test_kits_filter_invalid_connection() -> None:
 #     assert len(data['items']) == 1
 
 
+def test_kits_filter_valid_mount_style() -> None:
+    response = client.get("/v1/parts/kits?mount_style__in=Tray+Mount")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data['items']) == 2
+
+
+def test_kits_filter_invalid_mount_style() -> None:
+    response = client.get("/v1/parts/kits?mount_style__in=Maglev+Mountain")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data['items']) == 0
+
+
 def test_kits_filter_valid_material() -> None:
     response = client.get("/v1/parts/kits?material__in=Metal")
 
