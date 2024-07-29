@@ -6,7 +6,7 @@ from fastapi_filter.contrib.sqlalchemy import Filter
 from app.db.models.marketplace import Listings
 
 
-class ListingsFilter(Filter): # type: ignore[misc]
+class ListingsFilter(Filter):  # type: ignore[misc]
     part_type: Optional[list[str]] = None
     user_id: Optional[UUID] = None
     custom_order_by: Optional[list[str]] = Query(None)
@@ -24,4 +24,3 @@ class ListingsFilter(Filter): # type: ignore[misc]
         if isinstance(value, str):
             return [item.strip() for item in value.split(',')]
         return value
-        

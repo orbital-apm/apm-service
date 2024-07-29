@@ -20,7 +20,9 @@ router = APIRouter()
 
 
 @router.get('/listings', response_model=Page[ListingsSchema])
-def marketplace(db: Session = Depends(get_db), listings_filter: ListingsFilter = FilterDepends(ListingsFilter)) -> Page[ListingsSchema]:
+def marketplace(
+        db: Session = Depends(get_db),
+        listings_filter: ListingsFilter = FilterDepends(ListingsFilter)) -> Page[ListingsSchema]:
     try:
         query = select(Listings)
         query = listings_filter.filter(query)
