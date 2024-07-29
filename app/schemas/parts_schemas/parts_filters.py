@@ -69,6 +69,7 @@ class KitsFilter(Filter):  # type: ignore[misc]
     display_support__in: Optional[list[bool]] = None
     connection: Optional[list[str]] = None
 #   connection__in: Optional[list[str]] = None
+    mount_style__in: Optional[list[str]] = None
     material__in: Optional[list[str]] = None
     availability__in: Optional[list[bool]] = None
 
