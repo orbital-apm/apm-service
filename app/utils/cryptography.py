@@ -34,7 +34,7 @@ def decode_jwt(token: str) -> str:
             jwt=token,
             key=os.getenv("ACCESS_TOKEN_SECRET_KEY"),
             algorithms=["HS256"],
-            options={"verify_exp": True}
+            options={"verify_exp": False}
         )
         return decoded_token.get("sub")
 
