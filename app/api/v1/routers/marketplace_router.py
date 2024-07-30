@@ -41,7 +41,7 @@ def get_listing(id: UUID, db: Session = Depends(get_db)) -> JSONResponse:
 
 
 @router.post('/listings', response_model=ListingsResponse, status_code=status.HTTP_201_CREATED)
-def listing_route(request: GenerateListing, authorization: Annotated[str | None, Header()],
+def listing_route(request: GenerateListing, authorization: Annotated[str, Header()],
                   db: Session = Depends(get_db)) -> JSONResponse:
     try:
         user_id = get_current_user_id(authorization)
