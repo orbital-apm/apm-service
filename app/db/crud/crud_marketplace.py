@@ -18,7 +18,7 @@ def get_listings(db: Session) -> Page[ListingsSchema]:
 def get_listing(db: Session, uuid: UUID) -> Listings:
     query = select(Listings).where(Listings.id == uuid)
     result = db.execute(query)
-    listing = result.scalar_one_or_none
+    listing = result.scalar_one_or_none()
 
     if listing is None:
         raise HTTPException(status_code=404, detail="Information not found.")

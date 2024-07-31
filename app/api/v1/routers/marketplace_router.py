@@ -1,7 +1,8 @@
 from fastapi import Depends, HTTPException, APIRouter, status, Header
 from sqlalchemy.orm import Session
 from uuid import UUID
-from fastapi_pagination import Page, add_pagination, paginate
+from fastapi_pagination import Page, add_pagination
+from fastapi_pagination.ext.sqlalchemy import paginate
 from fastapi.responses import JSONResponse
 from fastapi_filter import FilterDepends
 from typing import Annotated
@@ -26,7 +27,7 @@ def marketplace(
     try:
         query = select(Listings)
         query = listings_filter.filter(query)
-        result: Page[ListingsSchema] = paginate(db.execute(query).scalars().all())
+        result: Page[ListingsSchema] = paginate(db, query)
         return result
     except Exception:
         raise Exception
