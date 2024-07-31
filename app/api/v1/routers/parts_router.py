@@ -27,7 +27,7 @@ def get_keycaps(db: Session = Depends(get_db),
         result: Page[KeycapSchema] = paginate(db, query)
         return result
     except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise Exception
 
 
 @router.get("/parts/keycaps/{id}")
