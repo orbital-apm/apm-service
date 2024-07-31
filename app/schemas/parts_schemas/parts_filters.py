@@ -21,7 +21,7 @@ class KeycapFilter(Filter):  # type: ignore[misc]
         model = Keycap
         ordering_field_name = "custom_order_by"
         search_field_name = "custom_search"
-        search_model_fields = ["name", "manufacturer", "material", "vendor", "layout", "profile"]
+        search_model_fields = ["name", "manufacturer", "material"]
 
     @field_validator('layout', 'profile', 'vendor', mode='before')
     @classmethod
@@ -44,7 +44,7 @@ class SwitchFilter(Filter):  # type: ignore[misc]
         model = Switch
         ordering_field_name = "custom_order_by"
         search_field_name = "custom_search"
-        search_model_fields = ['name', 'manufacturer', 'switch_type', 'vendor']
+        search_model_fields = ['name', 'manufacturer', 'switch_type']
 
     @field_validator('vendor', mode='before')
     @classmethod
@@ -80,7 +80,7 @@ class KitsFilter(Filter):  # type: ignore[misc]
         model = Kits
         ordering_field_name = "custom_order_by"
         search_field_name = "custom_search"
-        search_model_fields = ['name', 'manufacturer', 'layout_size', 'layout_standard', 'connection']
+        search_model_fields = ['name', 'manufacturer', 'material', 'mount_style']
 
     @field_validator('vendor', 'layout_size', 'layout_standard', 'connection', mode='before')
     @classmethod
