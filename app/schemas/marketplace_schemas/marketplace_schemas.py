@@ -3,7 +3,7 @@ from typing import Optional
 from uuid import UUID
 
 
-class ListingsSchema(BaseModel):
+class ListingsSchema(BaseModel):  # type:ignore[misc]
     id: UUID
     title: Optional[str] = None
     description: Optional[str] = None
