@@ -24,4 +24,3 @@ def get_listing(db: Session, uuid: UUID) -> Listings:
         raise HTTPException(status_code=404, detail="Information not found.")
 
     return cast(Listings, listing)
-
